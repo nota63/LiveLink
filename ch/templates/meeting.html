@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting Room</title>
+    <style>
+        /* Basic styling for the full-page spinner */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .spinner-container {
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #0078d4;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .redirect-message, .fail-message {
+            font-weight: bold;
+        }
+
+        .fail-message {
+            display: none;
+            color: #d9534f;
+        }
+    </style>
+</head>
+<body>
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <p class="redirect-message">Redirecting you to the meeting...</p>
+        <p class="fail-message">Failed to redirect automatically. Please click 
+            <a href="{{ meeting_link }}">here</a> to join.</p>
+    </div>
+
+    <script>
+        // Attempt to redirect after 4 seconds
+        setTimeout(function() {
+            // Try redirecting to the meeting link
+            window.location.href = "{{ meeting_link }}";
+        }, 4000);
+
+        // Show fail message if redirect doesn't work
+        setTimeout(function() {
+            document.querySelector('.redirect-message').style.display = 'none';
+            document.querySelector('.fail-message').style.display = 'block';
+        }, 4000);
+    </script>
+</body>
+</html>

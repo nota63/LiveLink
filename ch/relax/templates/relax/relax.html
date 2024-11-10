@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Room</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+     <!-- Add Font Awesome for play/stop icons -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212; /* Dark background */
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+
+        h1, h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* User list container */
+        #user-list-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 200px; /* Fixed width for user list */
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+            background: rgba(34, 34, 34, 0.8);
+        }
+
+        #messages {
+            border: 1px solid #444;
+            border-radius: 5px;
+            padding: 10px;
+            background: rgba(34, 34, 34, 0.8);
+            height: 450px; /* Set height to 300px */
+            width: 700px;  /* Set width to 300px */
+            overflow-y: auto;
+            margin: 20px auto;
+            position: relative;
+            animation: messageAnimation 1s infinite alternate;
+        }
+
+        /* Message styling */
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            animation: fadeInAnimation 0.5s ease forwards; /* Fade-in effect for messages */
+        }
+
+        /* Color for your messages */
+        .message.me {
+            background-color: #007bff; /* Blue for your messages */
+            color: white;
+            text-align: right;
+            animation: bounceInAnimation 0.5s ease forwards; /* Bounce effect for your messages */
+        }
+
+        /* Color for others' messages */
+        .message.other {
+            background-color: #ff4081; /* Pink for others' messages */
+            color: white;
+            text-align: left;
+            animation: shakeAnimation 0.5s ease forwards; /* Shake effect for others' messages */
+        }
+
+        #message-input {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        #message-input input {
+            width: 70%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #message-input button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4081; /* Button color */
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #message-input button:hover {
+            background-color: #e91e63; /* Button hover color */
+            transform: scale(1.1); /* Scale effect on hover */
+        }
+
+        /* Animation for the background */
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: hsl(0, 0%, 0%);
+           
+            }
+            100% {
+                background-color: #081405;
+            }
+        }
+
+        /* Additional animation for the message area */
+        @keyframes messageAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Fade-in effect for messages */
+        @keyframes fadeInAnimation {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Bounce effect for your messages */
+        @keyframes bounceInAnimation {
+            from {
+                transform: translateY(20px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        /* Shake effect for others' messages */
+        @keyframes shakeAnimation {
+            0% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+            75% {
+                transform: translateX(-5px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Add lighting layer effects */
+        .lighting {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 70%);
+            animation: lightingAnimation 5s infinite alternate;
+            z-index: -1; /* Send behind other elements */
+        }
+
+        /* Lighting animation */
+        @keyframes lightingAnimation {
+            0% {
+                opacity: 5;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 2.1;
+            }
+        }
+
+       /* User list container styling */
+#user-list-container {
+    max-height: 60px; /* Set the maximum height for the container */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add border for better visibility */
+    padding: 5px; /* Optional: Add padding inside the container */
+}
+
+/* User icon styling */
+.user-icon {
+    width: 20px; /* Set icon size */
+    height: 20px; /* Set icon size */
+    border-radius: 50%;
+    margin-right: 5px; /* Spacing between icon and text */
+    display: inline-block;
+    background-color: #007bff; /* Placeholder color for user icon */
+}
+
+/* User list item styling */
+.user-item {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    padding: 5px; /* Padding for each user item */
+}
+
+/* Play/Stop Button Styling */
+#musicControl {
+    position: absolute; /* Allows positioning relative to the page */
+    top: 20px; /* Distance from the top of the page */
+    right: 20px; /* Distance from the right side of the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2a2a72;  /* Dark blue color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);  /* Subtle shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+#musicControl i {
+    color: #00FFAB; /* Green for icon color */
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+#musicControl:hover {
+    background-color: #00FFAB;  /* Green background on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);  /* Stronger shadow */
+}
+
+#musicControl:hover i {
+    color: #2a2a72;  /* Dark blue icon color on hover */
+}
+
+/* Optional: Add a subtle scaling effect when the button is clicked */
+#musicControl:active {
+    transform: scale(0.95);  /* Slight shrink on click */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Hide the default file input */
+#imageInput {
+    display: none;
+}
+
+/* Create a custom button for the file input */
+#sendImageButton {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none;
+    padding: 10px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50%; /* Rounded button */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style the icon inside the button */
+#sendImageButton i {
+    font-size: 20px; /* Adjust the icon size */
+    color: white;
+}
+
+/* Hover effect for the button */
+#sendImageButton:hover {
+    background-color: #45a049;
+}
+
+/* Ensure the whole area of the button is clickable */
+#sendImageButton {
+    position: relative;
+}
+
+#sendImageButton input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Small and minimal styling for the h1 (room name) */
+h1 {
+    font-size: 16px; /* Reduce font size */
+    font-weight: normal; /* Optional: Make the text weight lighter */
+    margin: 5px 0; /* Reduce the margin for compact spacing */
+    color: #333; /* Optional: Change text color */
+    text-align: center; /* Optional: Center the text */
+    letter-spacing: 0.5px; /* Optional: Slightly adjust letter spacing */
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="lighting"></div> <!-- Lighting effects -->
+    <h1>Room: {{ group_name }}</h1>  <!-- Display dynamic room name -->
+    <div id="user-list-container">
+        <ul id="user-list"></ul>
+    </div>
+    <br>
+
+    <!-- Icon for controlling the music -->
+    <div id="musicControl" style="font-size: 30px; cursor: pointer;">
+        <i id="playPauseIcon" class="fas fa-play"></i> <!-- Play Icon initially -->
+    </div>
+
+    <!-- Audio element for continuous background music -->
+    <audio id="backgroundMusic" loop>
+        {% load static %}
+        <source src="{% static 'calm-night.mp3' %}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Display any messages -->
+    <div id="messages"></div>
+
+    <div id="message-input">
+        <input type="text" id="messageText" placeholder="Type your message..." />
+        <button id="sendButton">Send</button>
+
+        <!-- New input for image uploads -->
+        <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+        <button id="sendImageButton">Send Image</button>
+    </div>
+
+    <script>
+        const roomName = "{{ group_name }}";  // Ensure group_name is passed from Django template to JavaScript
+        const userList = document.getElementById('user-list');
+        const messageBox = document.getElementById('messages');
+        const messageText = document.getElementById('messageText');
+        const sendButton = document.getElementById('sendButton');
+        const imageInput = document.getElementById('imageInput');
+        const sendImageButton = document.getElementById('sendImageButton');
+        const currentUser = "{{ user.first_name }}";  // Pass the current user's first name
+
+        // Establish WebSocket connection with dynamic roomName
+        const socket = new WebSocket(
+            'ws://' + window.location.host + '/ws/music/' + roomName + '/'
+        );
+
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+
+            // Handle user join event
+            if (data.type === 'user_joined') {
+                const newUser = document.createElement('li');
+                newUser.classList.add('user-item');
+                newUser.innerHTML = `<span class="user-icon"></span> ${data.user}`;
+                userList.appendChild(newUser);
+            }
+
+            // Handle user left event
+            if (data.type === 'user_left') {
+                // Find and remove the user from the list
+                Array.from(userList.children).forEach((child) => {
+                    if (child.textContent.trim() === data.user) {
+                        userList.removeChild(child);
+                    }
+                });
+            }
+
+            // Handle chat messages
+            if (data.text) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.textContent = data.user + ": " + data.text;
+
+                // Check if the message is from the current user
+                if (data.user === currentUser) {
+                    messageElement.classList.add('me'); // Apply class for your message
+                } else {
+                    messageElement.classList.add('other'); // Apply class for others' messages
+                }
+
+                messageBox.appendChild(messageElement);
+                messageBox.scrollTop = messageBox.scrollHeight; // Scroll to the bottom
+            }
+
+          // Handle image messages
+if (data.type === 'image_message') {
+    const imageElement = document.createElement('img');
+    imageElement.src = data.image; // Assuming image data is a base64 string
+    imageElement.style.maxWidth = '650px'; // Set max width for image
+    imageElement.style.maxHeight = '650px'; // Set max height for image
+
+    // Add the sender's name as a tag above the image
+    const senderTag = document.createElement('div');
+    senderTag.textContent = `${data.user} sent an image:`;
+    senderTag.classList.add('sender-tag'); // You can style this in CSS
+
+    // Create a download button
+    const downloadButton = document.createElement('a');
+    downloadButton.href = data.image; // Use the base64 image as the download link
+    downloadButton.download = 'image.png'; // Set default download name
+    downloadButton.textContent = 'Download Image';
+    downloadButton.classList.add('download-button'); // You can style this in CSS
+
+    // Create a container for the image and the sender tag
+    const imageMessageElement = document.createElement('div');
+    imageMessageElement.classList.add('message');
+    imageMessageElement.appendChild(senderTag); // Add sender's tag
+    imageMessageElement.appendChild(imageElement); // Add image
+    imageMessageElement.appendChild(downloadButton); // Add download button
+
+    // Append the entire container to the message box
+    messageBox.appendChild(imageMessageElement);
+    messageBox.scrollTop = messageBox.scrollHeight; // Scroll to the bottom
+            }
+        };
+
+        // Get the audio element and the icon element
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const musicControl = document.getElementById('musicControl');
+
+        // Toggle between play and stop on icon click
+        let isPlaying = false;
+
+        musicControl.addEventListener('click', function() {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                playPauseIcon.classList.remove('fa-stop');
+                playPauseIcon.classList.add('fa-play'); // Change to play icon
+            } else {
+                backgroundMusic.play().catch(error => {
+                    console.log("Playback failed: ", error);
+                });
+                playPauseIcon.classList.remove('fa-play');
+                playPauseIcon.classList.add('fa-stop'); // Change to stop icon
+            }
+            isPlaying = !isPlaying; // Toggle the state
+        });
+
+        socket.onclose = function() {
+            console.log("WebSocket closed.");
+        };
+
+        socket.onerror = function(error) {
+            console.error("WebSocket error: ", error);
+        };
+
+        // Send message on button click
+        sendButton.onclick = function() {
+            const message = messageText.value;
+            if (message) {
+                socket.send(JSON.stringify({
+                    'text': message,
+                    'user': currentUser
+                }));
+                messageText.value = ''; // Clear input
+            }
+        };
+
+        // Send message on Enter key press
+        messageText.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendButton.click(); // Trigger button click
+            }
+        });
+
+        // Send image on button click
+        sendImageButton.onclick = function() {
+            const file = imageInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    // Create the image message
+                    const imageMessage = {
+                        type: 'image_message',
+                        image: event.target.result // Get base64 string
+                    };
+                    socket.send(JSON.stringify(imageMessage));
+                    imageInput.value = ''; // Clear input
+                };
+                reader.readAsDataURL(file); // Convert to base64
+            } else {
+                alert("Please select an image to send and tap again the send button."); // Alert if no file is selected
+            }
+        };
+
+        // Trigger image input when the button is clicked
+        sendImageButton.addEventListener('click', function() {
+            imageInput.click(); // Open file picker
+        });
+    </script>
+</body>
+</html>

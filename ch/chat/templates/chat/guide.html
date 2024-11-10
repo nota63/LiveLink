@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create and Join a Video Meeting</title>
+    <!-- Premium Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2c2f33;
+            color: #dcdcdc;
+            padding: 15px;
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+        }
+
+        /* Header and Navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #23272a;
+            padding: 8px 16px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .navbar .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .navbar .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons .btn-nav {
+            background-color: #7289da;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-buttons .btn-nav:hover {
+            background-color: #5b6eae;
+        }
+
+        /* Heading Styles */
+        h1 {
+            font-size: 22px;
+            color: #7289da;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 16px;
+            color: #7289da;
+            margin-bottom: 10px;
+            font-weight: 500;
+            border-bottom: 1px solid #7289da;
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .instruction-step {
+            margin-bottom: 20px;
+        }
+
+        /* Image and Screenshots */
+        .screenshot-frame {
+            width: 100%;
+            max-width: 500px;
+            margin: 10px auto;
+            padding: 8px;
+            background: #23272a;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid #2c2f33;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-frame:hover {
+            transform: scale(1.02);
+        }
+
+        /* CTA Button */
+        .get-started-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #43b581;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .get-started-btn:hover {
+            background-color: #3a9d6d;
+        }
+
+        /* Notes Section */
+        .note {
+            background-color: #3e4147;
+            padding: 12px;
+            border-left: 5px solid #7289da;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #b9bbbe;
+        }
+
+        .footer a {
+            color: #7289da;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+     {% load static %}
+    <div class="navbar">
+        <div class="logo">LiveLink</div>
+        <div class="nav-buttons">
+            <a href="{% url 'how'%}">
+                <button class="btn-nav" type="submit">How It Works</button>
+            </a>
+            <a href="{% url 'support'%}">
+                <button class="btn-nav" type="submit">Support</button>
+            </a>
+            <button class="btn-nav" onclick="window.location.href='/'">Home</button>
+        </div>
+    </div>
+
+    <!-- Get Started Button -->
+    <a href="{% url 'room'%}" class="get-started-btn">Get Started</a>
+
+    <h1>How to Create and Join a Video Meeting</h1>
+
+    <div class="instruction-step">
+        <h2>Step 1: Open the Meeting Page</h2>
+        <p>Visit the main page of our application. You will see a form asking you to enter a room name. This name will be used to create or join a video chat room.</p>
+        <div class="screenshot-frame">
+            <img src="{% static 'join_meeting.png' %}" alt="Screenshot of room entry form" width="100%">
+        </div>
+    </div>
+
+    <div class="instruction-step">
+        <h2>Step 2: Invite Other People</h2>
+        <p>To invite people, copy the link below and share it via any platform you want. Ask them to paste this link into their browser to join the room.</p>
+        <div class="screenshot-frame">
+            <img src="{% static 'invite.png' %}" alt="Screenshot of room name entry and join button" width="100%">
+        </div>
+        <p class="note"><strong>Note:</strong> If a room with the same name exists, you will automatically join that meeting.</p>
+    </div>
+
+    <div class="instruction-step">
+        <h2>Step 3: Share Screen</h2>
+        <p>You can share your screen, and other people can view it in HD quality.</p>
+        <div class="screenshot-frame">
+            <img src="{% static 'screen_share.png' %}" alt="Screenshot of video meeting interface" width="100%">
+        </div>
+    </div>
+
+    <div class="instruction-step">
+        <h2>Step 4: Use Meeting Controls</h2>
+        <p>Control buttons at the bottom of the screen allow you to mute/unmute your microphone, enable/disable your camera, or share the room link.</p>
+        <div class="screenshot-frame">
+            <img src="{% static 'controls.png' %}" alt="Screenshot of Jitsi meeting controls" width="100%">
+        </div>
+    </div>
+
+    <div class="instruction-step">
+        <h2>Step 5: Change Background</h2>
+        <p>You can change the background and appear in HD quality to others using this feature.</p>
+        <div class="screenshot-frame">
+            <img src="{% static 'backgrounds.png' %}" alt="Screenshot of the leave button" width="100%">
+        </div>
+    </div>
+
+    <div class="instruction-step">
+        <h2>Troubleshooting Tips</h2>
+        <p>If you experience issues, check the following:</p>
+        <ul>
+            <li>Ensure your browser has access to your camera and microphone.</li>
+            <li>Make sure your internet connection is stable.</li>
+            <li>Use an updated version of a supported browser like Google Chrome or Firefox.</li>
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 LiveLink. All rights reserved. | <a href="{% url 'privacy_policy'%}">Privacy Policy</a></p>
+    </div>
+</body>
+</html>

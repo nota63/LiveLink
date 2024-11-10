@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | LiveLink</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .logo-container {
+            width: 30%; /* Take 30% of the width for the logo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease; /* Animation for logo */
+            background: linear-gradient(to bottom right, #1E88E5, #d9e4f5); /* Background for logo container */
+        }
+        .logo {
+            width: 100px; /* Size of the logo */
+            height: 100px; /* Maintain aspect ratio */
+            border-radius: 50%; /* Rounded logo */
+            animation: slideIn 0.5s forwards; /* Animation for sliding in */
+        }
+        .form-container {
+            width: 40%; /* Adjusted width for form container */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px; /* Padding around the form */
+            background-color: white;
+            border-radius: 10px; /* Rounded corners for container */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin: auto; /* Center the form */
+        }
+        h1 {
+            font-size: 22px; /* Header font size */
+            margin-bottom: 10px;
+            color: #1E88E5;
+            text-align: center; /* Center align the header */
+        }
+        .welcome-message {
+            font-size: 14px; /* Welcome message font size */
+            color: #666;
+            margin-bottom: 15px; /* Margin for spacing */
+            text-align: center; /* Center align the welcome message */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            position: relative; /* Set position relative for spinner */
+            width: 100%; /* Full width for the form */
+        }
+        .form-group {
+            margin-bottom: 12px; /* Reduced margin */
+            text-align: left; /* Align labels to the left */
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: bold; /* Bold for labels */
+            font-size: 12px; /* Label font size */
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            padding: 8px; /* Padding for inputs */
+            border: 1px solid #ddd; /* Border for inputs */
+            border-radius: 4px; /* Rounded inputs */
+            font-size: 14px; /* Input font size */
+            width: 100%; /* Full width for inputs */
+            box-sizing: border-box; /* Include padding in width */
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #1E88E5; /* Border color on focus */
+            outline: none; /* No outline on focus */
+        }
+        button {
+            padding: 8px; /* Padding for button */
+            background-color: #1E88E5; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded button */
+            font-size: 14px; /* Button font size */
+            cursor: pointer; /* Pointer on hover */
+            transition: background-color 0.3s ease; /* Transition for background color */
+        }
+        button:hover {
+            background-color: #1565c0; /* Darker shade on hover */
+        }
+        .footer {
+            margin-top: 15px; /* Margin for footer */
+            font-size: 12px; /* Footer font size */
+            text-align: center; /* Center align footer */
+        }
+        .footer a {
+            color: #1E88E5; /* Link color */
+            text-decoration: none; /* No underline */
+        }
+        .footer a:hover {
+            text-decoration: underline; /* Underline on hover */
+        }
+        /* Spinner styles */
+        .spinner {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Centering */
+            text-align: center; /* Center text */
+        }
+        .spinner .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3); /* Loader border */
+            border-radius: 50%; /* Rounded loader */
+            border-top: 4px solid #1E88E5; /* Top border color */
+            width: 20px; /* Loader size */
+            height: 20px; /* Loader size */
+            animation: spin 1s linear infinite; /* Spin animation */
+        }
+        .spinner p {
+            margin-top: 5px; /* Margin for spinner text */
+            font-size: 12px; /* Spinner text size */
+            color: #555; /* Spinner text color */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); } /* Spin start */
+            100% { transform: rotate(360deg); } /* Spin end */
+        }
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); opacity: 0; } /* Slide in start */
+            100% { transform: translateX(0); opacity: 1; } /* Slide in end */
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; } /* Fade in start */
+            100% { opacity: 1; } /* Fade in end */
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="https://th.bing.com/th/id/OIP.NAe739lomLgIBCOnU0gMrAHaEx?w=1180&h=760&rs=1&pid=ImgDetMain" alt="LiveLink Logo" class="logo"> <!-- Update the path to your logo -->
+    </div>
+    <div class="form-container">
+        <div class="content">
+            <h1>Login To Your Account</h1>
+            <p class="welcome-message">Join LiveLink to experience seamless chats and video calls!</p>
+            <form method="post" id="registrationForm" onsubmit="showSpinner()">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div style="color: red; font-size: 12px;">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit">Login</button>
+                <div class="spinner" id="spinner">
+                    <div class="loader"></div>
+                    <p>Logging In {{request.user}}...</p>
+                </div>
+            </form>
+            <div class="footer">
+                <p>Dont have an account? <a href="{% url 'register' %}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSpinner() {
+            document.getElementById('spinner').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Joined Chat Rooms</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 1.3em; /* Reduced size */
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .chat-room-list {
+            max-width: 350px; /* Reduced width */
+            max-height: 280px; /* Fixed height for scrolling */
+            margin: auto;
+            border-radius: 8px;
+            overflow-y: auto; /* Enable vertical scrolling */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 8px;
+            border: 1px solid #eaeaea;
+            margin-bottom: 20px;
+        }
+
+        .chat-room {
+            padding: 8px; /* Reduced padding */
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .chat-room:last-child {
+            border-bottom: none;
+        }
+
+        .chat-room h3 {
+            margin: 0;
+            font-size: 1em; /* Slightly reduced size */
+            color: #2980b9;
+        }
+
+        .date-joined {
+            font-size: 0.75em; /* Reduced font size */
+            color: #777;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8em;
+            color: #aaa;
+        }
+
+        /* Custom scrollbar styles */
+        .chat-room-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-room-list::-webkit-scrollbar-thumb {
+            background-color: #2980b9;
+            border-radius: 10px;
+        }
+
+        .chat-room-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .message-section {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .message {
+            background-color: #d4edda; /* Light green background */
+            color: #155724; /* Dark green text */
+            border: 1px solid #c3e6cb; /* Green border */
+            border-radius: 5px;
+            padding: 8px 12px; /* Reduced padding */
+            margin: 5px 0;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: popUp 0.5s forwards;
+        }
+
+        /* Animation Keyframes */
+        @keyframes popUp {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .clear-all-button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 12px; /* Smaller padding */
+            font-size: 0.85em; /* Reduced font size */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-all-button i {
+            margin-right: 6px; /* Spacing between icon and text */
+        }
+
+        .clear-all-button:hover {
+            background-color: #1a6f99;
+        }
+
+        @media (max-width: 480px) {
+            .chat-room-list {
+                max-width: 95%;
+            }
+            h1 {
+                font-size: 1.1rem;
+            }
+            .clear-all-button {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome Back, {{ request.user.first_name }}!</h1>
+        <p>Here are the chat rooms you were joined:</p>
+    </header>
+
+    <section class="message-section">
+        {% if messages %}
+            {% for m in messages %}
+                <div class="message">{{ m }}</div>
+            {% endfor %}
+        {% endif %}
+    </section>
+
+    <div class="chat-room-list">
+        {% if joined %}
+            {% for room in joined %}
+                <div class="chat-room">
+                    <h3>{{ room.room_title }}</h3>
+                    <p class="date-joined">Joined on: {{ room.date_joined|date:"F j, Y, g:i a" }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="chat-room">
+                <p>You have not joined any chat rooms yet. Explore and join some!</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'clear_joined_rooms' %}">
+        <button type="button" class="clear-all-button">
+            <i class="fas fa-trash-alt"></i>Clear All
+        </button>
+    </a>
+    
+    <footer>
+        <p>&copy; 2024 LiveLink. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(message => {
+                setTimeout(() => {
+                    message.style.opacity = 0; // Fade out
+                    message.style.transition = "opacity 0.5s ease-out"; // Smooth transition
+                    setTimeout(() => {
+                        message.remove(); // Remove after fade out
+                    }, 500); // Delay removal to match fade out duration
+                }, 3000); // Show for 3 seconds before fading out
+            });
+        });
+    </script>
+
+</body>
+</html>

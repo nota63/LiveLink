@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Coming Soon</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Background */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2c2f33;
+            color: #dcdcdc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Main Wrapper */
+        .coming-soon-container {
+            text-align: center;
+            padding: 30px;
+            background-color: #23272a;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.2s ease-out;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* Title */
+        h1 {
+            font-size: 28px;
+            color: #7289da;
+            margin-bottom: 15px;
+            animation: slideIn 1.2s ease-in-out;
+        }
+
+        /* Coming Soon Message */
+        p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: #dcdcdc;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* Animated Icons */
+        .icon {
+            font-size: 50px;
+            color: #43b581;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        /* Button Style */
+        .notify-btn {
+            padding: 10px 30px;
+            background-color: #43b581;
+            color: white;
+            font-size: 14px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .notify-btn:hover {
+            background-color: #3a9d6d;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #b9bbbe;
+        }
+
+        /* Keyframes for Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="coming-soon-container">
+        <div class="icon">🚀</div>
+        <h1>Exciting Features Coming Soon!</h1>
+        <p>We're hard at work building something amazing for you! Stay tuned for brand new features that will enhance your experience. Your journey with us is about to get even better.</p>
+        <button class="notify-btn" onclick="alert('We\'ll notify you when the new features are live!')">Notify Me</button>
+        <div class="footer">
+            <p>&copy; 2024 LiveLink. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

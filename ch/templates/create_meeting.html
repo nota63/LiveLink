@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Zoho Meeting</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMiZC5h0HAtFBOey9iFFeFAUQeB9yfz7t5K8MS" crossorigin="anonymous">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px 30px; /* Increased padding */
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #343a40;
+            margin-bottom: 15px;
+            font-size: 28px; /* Larger heading size */
+        }
+
+        p {
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+        }
+
+        .info {
+            margin: 20px 0; /* Spacing for info section */
+            color: #6c757d;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        .info i {
+            margin-right: 10px; /* Spacing for icons */
+            color: #007bff; /* Icon color */
+            font-size: 20px; /* Icon size */
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create a Zoho Meeting</h1>
+        <p>To get started, click the button below to initiate a new meeting:</p>
+        
+        <div class="info">
+            <i class="fas fa-video"></i>
+            <span>Host high-quality video meetings easily.</span>
+        </div>
+        <div class="info">
+            <i class="fas fa-users"></i>
+            <span>Invite participants and collaborate in real-time.</span>
+        </div>
+        <div class="info">
+            <i class="fas fa-clock"></i>
+            <span>Schedule meetings effortlessly with reminders.</span>
+        </div>
+        
+        <a href="{{ create_meeting_link }}">
+            <button>Create Meeting</button>
+        </a>
+    </div>
+</body>
+</html>
+

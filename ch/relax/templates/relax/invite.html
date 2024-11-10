@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invite Users</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif; /* Google font */
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 400px; /* Fixed width */
+            height: 500px; /* Fixed height */
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            flex-grow: 1;
+            overflow-y: auto; /* Enable scrolling */
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        /* Sticky submit button */
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Spinner styles */
+        .spinner {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .spinner img {
+            width: 24px; /* Smaller spinner size */
+            height: 24px;
+        }
+
+        .spinner p {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Invite Users</h1>
+
+        <form id="inviteForm" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <!-- Submit button inside form -->
+            <button id="submitButton" type="submit">Invite Selected Users</button>
+            
+            <!-- Spinner for lazy loading -->
+            <div class="spinner" id="spinner">
+                <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."> <!-- Example spinner GIF -->
+                <p>Sending room invitation...</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Add lazy loading functionality
+        const form = document.getElementById('inviteForm');
+        const submitButton = document.getElementById('submitButton');
+        const spinner = document.getElementById('spinner');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Show spinner and disable submit button
+            submitButton.disabled = true;
+            spinner.style.display = 'block';
+
+            // Simulate email sending task with a timeout
+            setTimeout(function() {
+                form.submit(); // Submit form after the email-sending task (replace with actual task)
+            }, 3000); // Example delay of 3 seconds
+        });
+    </script>
+
+</body>
+</html>

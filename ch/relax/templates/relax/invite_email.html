@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.8;
+}
+
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 34px; /* Increased size for premium look */
+    font-weight: 700; /* Stronger weight for header */
+    letter-spacing: 1px;
+}
+
+.content {
+    padding: 40px 50px;
+    text-align: left;
+    font-size: 17px; /* Slightly larger font for clarity */
+    line-height: 1.8;
+    color: #555;
+}
+
+.content h2 {
+    color: #c33764;
+    font-size: 24px; /* Enhanced size for sub-heading */
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.content p {
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 24px; /* Increase padding for more prominent button */
+    background-color: #1d2671;
+    color: white;
+    font-size: 18px; /* Larger button text for better emphasis */
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    background-color: #c33764;
+    transform: scale(1.05); /* Slightly less aggressive scaling */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
+}
+
+.divider {
+    border-top: 1px solid #eee;
+    margin: 30px 0;
+}
+
+.footer {
+    background-color: #f4f7f9;
+    padding: 30px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+.footer a {
+    color: #1d2671;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+/* Structure and premium look for Powered by section */
+.powered-by {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Grid layout for structured alignment */
+    gap: 30px; /* Consistent and larger gap for a premium look */
+    justify-items: center; /* Center align images */
+    padding: 20px;
+}
+
+.powered-by img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; /* Ensure all images fit within the circular frame */
+    opacity: 0.9;
+    border-radius: 50%; /* Circular images for a premium feel */
+    transition: transform 0.4s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+}
+
+.powered-by img:hover {
+    transform: scale(1.1); /* Slight scaling on hover for interaction */
+    opacity: 1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for premium hover effect */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .powered-by {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Adjust size for smaller screens */
+    }
+
+    .powered-by img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+
+@keyframes continuous-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+    }
+    .content {
+        padding: 20px;
+    }
+    .button {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .header h1 {
+        font-size: 28px; /* Reduce size on smaller screens */
+    }
+    .content h2 {
+        font-size: 20px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>You're Invited to Join Our Exclusive Room!</h1>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <h2>Dear Friend,</h2>
+            <p>We are thrilled to extend a personal invitation to you to join the private room, <strong>{{ group_name }}</strong> created by {{user}}. This is your gateway to an exclusive live session, where you'll interact with our vibrant community, sharing ideas, insights, and experiences that matter to you.</p>
+            <p>In this space, we aim to foster creativity, collaboration, and fun. Whether you're joining to learn, network, or just engage in thoughtful conversation, this room is built to create meaningful moments that last.</p>
+            <p>To accept your invitation, click the link below. You don’t want to miss out!</p>
+
+            <!-- Call to Action Button -->
+            <a href="{{ room_link }}" class="button">Join the Room Now</a>
+
+            <!-- Optional Divider -->
+            <div class="divider"></div>
+
+            <p>If you have any questions or need help getting started, feel free to reach out. We’re here to support you every step of the way!</p>
+            <p>Looking forward to seeing you there.</p>
+            <p>Warm Regards,<br><strong>The Team LiveLink</strong></p>
+        </div>
+
+        <!-- Powered By Section -->
+       
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2024 LiveLink| <a href="#">Manage Preferences</a> | <a href="#">Unsubscribe</a></p>
+        </div>
+    </div>
+</body>
+</html>

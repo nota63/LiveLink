@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Join Live Chat Room</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            font-size: 0.8rem; /* Reduced font size */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle box shadow */
+        }
+
+        header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            text-align: center;
+            z-index: 10;
+            font-size: 0.9rem; /* Smaller font size */
+        }
+
+        h1 {
+            font-size: 1.4rem; /* Reduced heading size */
+            margin: 0;
+        }
+
+        strong {
+            font-size: 0.95rem; /* Smaller strong text */
+            display: block;
+            margin: 10px 0;
+        }
+
+        p {
+            margin: 4px 0;
+            font-size: 0.85rem; /* Smaller paragraph text */
+        }
+
+        section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08); /* Softer box shadow */
+            padding: 15px;
+            width: 85%;
+            max-width: 320px; /* More compact max-width */
+            margin-top: 70px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            padding: 8px; /* Reduced padding */
+            margin: 6px 0; /* Smaller margin */
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.85rem; /* Smaller input text size */
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        button {
+            padding: 8px 10px; /* Smaller button padding */
+            border: none;
+            border-radius: 18px; /* Rounded button corners */
+            background-color: #4a90e2;
+            color: white;
+            font-size: 0.85rem; /* Reduced button text size */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #357ab8;
+            transform: translateY(-1px);
+        }
+
+        .icon {
+            margin-right: 5px;
+            font-size: 0.85rem; /* Smaller icon */
+        }
+
+        footer {
+            margin-top: 15px;
+            font-size: 0.75rem; /* Smaller footer text */
+            color: #777;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Welcome Back, {{ request.user.first_name }}!</h1>
+    </header>
+    <strong>Please Enter The Room Name To Join Live Chat</strong>
+    <p>Time: {{ actual_time }}</p>
+    <h5 style="font-size: 0.8rem; color: #555;">You will be redirected to the room you entered!</h5>
+
+    <section>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Keeping the original form structure -->
+            <button type="submit"><i class="fas fa-sign-in-alt icon"></i>Join Room</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 LiveLink. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
